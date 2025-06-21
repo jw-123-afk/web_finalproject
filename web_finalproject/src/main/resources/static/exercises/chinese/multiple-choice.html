@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Choice - GoLanguage</title>
+    <link rel="stylesheet" href="../../css/main-page.css">
+    <link rel="stylesheet" href="../../css/exercises.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <h1>GoLanguage</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active">
+                        <a href="../../chinese.html"><i class="fas fa-book"></i> <span>Learn</span></a>
+                    </li>
+                    <li>
+                        <a href="../../achievement.html"><i class="fas fa-trophy"></i> <span>Achievements</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-user"></i> <span>Profile</span></a>
+                    </li>
+                    <li>
+                        <a href="../../about-us.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <h2>Multiple Choice Exercise</h2>
+               
+            </div>
+
+            <div class="exercise-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 20%"></div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question-number">Question 1 of 5</div>
+                    <div class="question-text">
+                        What is the meaning of "你好" (nǐ hǎo)?
+                    </div>
+                    <div class="options-container">
+                        <label class="option">
+                            <input type="radio" name="answer" value="1">
+                            <span class="option-text">Goodbye</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="answer" value="2">
+                            <span class="option-text">Hello</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="answer" value="3">
+                            <span class="option-text">Thank you</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="answer" value="4">
+                            <span class="option-text">Good night</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="nav-btn" id="prevBtn" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button class="nav-btn primary" id="nextBtn">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample questions data
+        const questions = [
+            {
+                question: "What is the meaning of '你好' (nǐ hǎo)?",
+                options: ["Goodbye", "Hello", "Thank you", "Good night"],
+                correctAnswer: 2
+            },
+            {
+                question: "How do you say 'Thank you' in Chinese?",
+                options: ["再见 (zài jiàn)", "谢谢 (xiè xiè)", "早上好 (zǎo shang hǎo)", "晚安 (wǎn ān)"],
+                correctAnswer: 2
+            },
+            {
+                question: "What does '我' (wǒ) mean?",
+                options: ["You", "I/Me", "He/She", "They"],
+                correctAnswer: 2
+            },
+            {
+                question: "Which word means 'water' in Chinese?",
+                options: ["食物 (shí wù)", "饮料 (yǐn liào)", "水 (shuǐ)", "茶 (chá)"],
+                correctAnswer: 3
+            },
+            {
+                question: "What is the correct way to say 'How are you?'",
+                options: ["晚安 (wǎn ān)", "你好吗 (nǐ hǎo ma)", "再见 (zài jiàn)", "谢谢 (xiè xiè)"],
+                correctAnswer: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        // Navigation buttons functionality
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                updateQuestion();
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            
+            if (!selectedAnswer) {
+                alert('Please select an answer before proceeding.');
+                return;
+            }
+
+            if (parseInt(selectedAnswer.value) !== questions[currentQuestion].correctAnswer) {
+                alert('Incorrect answer. Please try again.');
+                return;
+            }
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                updateQuestion();
+            } else {
+                alert('Congratulations! You have completed all questions!');
+
+                // Send exercise name and status to backend
+                const userId = localStorage.getItem('userId');
+
+                const achievement = {
+                    name: 'Chinese - Multiple Choice',
+                    status: 'Completed',
+                    user: {id: userId}
+                };
+
+                fetch('http://localhost:8080/api/Achievement', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(achievement)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Achievement saved successfully.');
+                            window.location.href = '../../chinese.html';
+                        } else {
+                            console.error('Failed to save Achievement.');
+                            window.location.href = '../../chinese.html';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        });
+
+        function updateQuestion() {
+            const question = questions[currentQuestion];
+            document.querySelector('.question-text').textContent = question.question;
+            
+            // Clear previous selection
+            document.querySelectorAll('input[name="answer"]').forEach(input => {
+                input.checked = false;
+            });
+            
+            const options = document.querySelectorAll('.option-text');
+            question.options.forEach((option, index) => {
+                options[index].textContent = option;
+            });
+
+            // Update progress
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.querySelector('.progress').style.width = `${progress}%`;
+            
+            // Update question number
+            document.querySelector('.question-number').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').textContent = 
+                currentQuestion === questions.length - 1 ? 'Finish' : 'Next';
+        }
+    </script>
+</body>
+</html> 

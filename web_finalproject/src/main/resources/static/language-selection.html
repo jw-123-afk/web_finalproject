@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Language - GoLanguage</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/language-selection.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>GoLanguage</h1>
+            </div>
+        </header>
+
+        <main>
+            <div class="language-selection">
+                <h2>Choose Your Language</h2>
+                <p class="subtitle">Select the language you want to learn</p>
+                
+                <div class="language-cards">
+                    <div class="language-card" onclick="window.location.href='bahasa-melayu.html'">
+                        <div class="card-content">
+                            <img src="images/malaysia_flag.webp" alt="Malaysia Flag" class="language-flag">
+                            <h3>Bahasa Melayu</h3>
+                            <p>Learn the official language of Malaysia</p>
+                            <button class="select-btn">Select</button>
+                        </div>
+                    </div>
+
+                    <div class="language-card" onclick="window.location.href='chinese.html'">
+                        <div class="card-content">
+                            <img src="images/Flag_of_the_People's_Republic_of_China.webp" alt="China Flag" class="language-flag">
+                            <h3>Chinese</h3>
+                            <p>Learn the most spoken language in the world</p>
+                            <button class="select-btn">Select</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // No longer needed since we're using direct links
+        function selectLanguage(language) {
+            window.location.href = language.toLowerCase() + '.html';
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Choice - GoLanguage</title>
+    <link rel="stylesheet" href="../../css/main-page.css">
+    <link rel="stylesheet" href="../../css/exercises.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <h1>GoLanguage</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active">
+                        <a href="../../bahasa-melayu.html"><i class="fas fa-book"></i> <span>Learn</span></a>
+                    </li>
+                    <li>
+                        <a href="../../achievement.html"><i class="fas fa-trophy"></i> <span>Achievements</span></a>
+                    </li>
+                    <li>
+                        <a href="../../profile.html"><i class="fas fa-user"></i> <span>Profile</span></a>
+                    </li>
+                    <li>
+                        <a href="../../about-us.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <h2>Multiple Choice Exercise</h2>
+                <div class="user-info">
+                    
+                </div>
+            </div>
+
+            <div class="exercise-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 20%"></div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question-number">Question 1 of 5</div>
+                    <div class="question-text">
+                        What is the meaning of "Selamat pagi"?
+                    </div>
+                    <div class="options-container">
+                        <label class="option">
+                            <input type="radio" name="answer" value="0">
+                            <span class="option-text">Good night</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="answer" value="1">
+                            <span class="option-text">Good morning</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="answer" value="2">
+                            <span class="option-text">Good afternoon</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="answer" value="3">
+                            <span class="option-text">Good evening</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="nav-btn" id="prevBtn" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button class="nav-btn primary" id="nextBtn">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load user info
+        const userId = localStorage.getItem('userId');
+        if (userId) {
+            fetch(`http://localhost:8080/api/User/${userId}`)
+                .then(response => response.json())
+                .then(user => {
+                    document.getElementById('userName').textContent = user.name;
+                });
+
+            // Load user avatar
+            fetch(`http://localhost:8080/api/User/${userId}/profile-picture`)
+                .then(res => {
+                    if (res.ok) return res.blob();
+                })
+                .then(blob => {
+                    if (blob) {
+                        document.getElementById('userAvatar').src = URL.createObjectURL(blob);
+                    }
+                });
+        }
+
+        // Sample questions data
+        const questions = [
+            {
+                question: "What is the meaning of 'Selamat pagi'?",
+                options: ["Good night", "Good morning", "Good afternoon", "Good evening"],
+                correctAnswer: 1
+            },
+            {
+                question: "How do you say 'Thank you' in Bahasa Melayu?",
+                options: ["Sama-sama", "Terima kasih", "Selamat datang", "Apa khabar"],
+                correctAnswer: 1
+            },
+            {
+                question: "What does 'Saya' mean?",
+                options: ["You", "I/Me", "He/She", "They"],
+                correctAnswer: 1
+            },
+            {
+                question: "Which word means 'water' in Bahasa Melayu?",
+                options: ["Makanan", "Minuman", "Air", "Teh"],
+                correctAnswer: 2
+            },
+            {
+                question: "What is the correct way to say 'How are you?'",
+                options: ["Selamat malam", "Apa khabar", "Sampai jumpa", "Terima kasih"],
+                correctAnswer: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        // Navigation buttons functionality
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                updateQuestion();
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (!userId) {
+                alert('Please log in to save your progress.');
+                window.location.href = '../../login.html';
+                return;
+            }
+
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            
+            if (!selectedAnswer) {
+                alert('Please select an answer before proceeding.');
+                return;
+            }
+
+            if (parseInt(selectedAnswer.value) !== questions[currentQuestion].correctAnswer) {
+                alert('Incorrect answer. Please try again.');
+                return;
+            }
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                updateQuestion();
+            } else {
+                // Create new achievement
+                const achievement = {
+                    name: 'Malay - Multiple Choice',
+                    status: 'Completed',
+                    user: { id: userId }
+                };
+
+                fetch('http://localhost:8080/api/Achievement', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(achievement)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Congratulations! You have completed all questions!');
+                        window.location.href = '../../bahasa-melayu.html';
+                    } else {
+                        throw new Error('Failed to save achievement');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error saving achievement, but exercise completed!');
+                    window.location.href = '../../bahasa-melayu.html';
+                });
+            }
+        });
+
+        function updateQuestion() {
+            const question = questions[currentQuestion];
+            document.querySelector('.question-text').textContent = question.question;
+            
+            // Clear previous selection
+            document.querySelectorAll('input[name="answer"]').forEach(input => {
+                input.checked = false;
+            });
+            
+            const options = document.querySelectorAll('.option-text');
+            question.options.forEach((option, index) => {
+                options[index].textContent = option;
+            });
+
+            // Update progress
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.querySelector('.progress').style.width = `${progress}%`;
+            
+            // Update question number
+            document.querySelector('.question-number').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').textContent = 
+                currentQuestion === questions.length - 1 ? 'Finish' : 'Next';
+        }
+
+        // Initialize first question
+        updateQuestion();
+    </script>
+</body>
+</html> 

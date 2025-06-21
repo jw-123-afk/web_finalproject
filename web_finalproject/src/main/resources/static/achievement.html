@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Achievements - GoLanguage</title>
+    <link rel="stylesheet" href="css/main-page.css?v=2">
+    <link rel="stylesheet" href="css/achievement.css?v=2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <h1>GoLanguage</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li>
+                        <a href="#" id="learnLink"><i class="fas fa-book"></i> <span>Learn</span></a>
+                    </li>
+                    <li class="active">
+                        <a href="#"><i class="fas fa-trophy"></i> <span>Achievements</span></a>
+                    </li>
+                    <li>
+                        <a href="profile.html"><i class="fas fa-user"></i> <span>Profile</span></a>
+                    </li>
+                    <li>
+                        <a href="about-us.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a>
+                    </li>
+                    <li>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> <span>Log Out</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="achievement-wrapper">
+            <div class="achievement-header">
+                <h1>Your Learning Journey</h1>
+                <p>Track your progress and celebrate your achievements!</p>
+            </div>
+
+            <div class="achievement-section">
+                <div class="section-header">
+                    <h2>
+                        <img src="images/malaysia_flag.webp" alt="Malaysia Flag" class="flag-icon">
+                        Achievements - Malay
+                    </h2>
+                    <div class="achievement-stats">
+                        <div class="stat">
+                            <i class="fas fa-star"></i>
+                            <span id="malay-total">0</span> Achievements
+                        </div>
+                    </div>
+                </div>
+                <div id="malay-achievements" class="achievement-list"></div>
+            </div>
+
+            <div class="achievement-section">
+                <div class="section-header">
+                    <h2>
+                        <img src="images/Flag_of_the_People's_Republic_of_China.webp" alt="China Flag" class="flag-icon">
+                        Achievements - Chinese
+                    </h2>
+                    <div class="achievement-stats">
+                        <div class="stat">
+                            <i class="fas fa-star"></i>
+                            <span id="chinese-total">0</span> Achievements
+                        </div>
+                    </div>
+                </div>
+                <div id="chinese-achievements" class="achievement-list"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const selectedLanguage = localStorage.getItem("selectedLanguage");
+        const userId = localStorage.getItem("userId");
+
+        function updateAchievementCount(malayCount, chineseCount) {
+            document.getElementById('malay-total').textContent = malayCount;
+            document.getElementById('chinese-total').textContent = chineseCount;
+        }
+
+        function deleteAchievement(achievementId) {
+            if (!confirm('Are you sure you want to delete this achievement?')) {
+                return;
+            }
+
+            fetch(`http://localhost:8080/api/Achievement/${achievementId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Refresh the achievements list
+                    loadAchievements();
+                    alert('Achievement deleted successfully!');
+                } else {
+                    throw new Error('Failed to delete achievement');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to delete achievement');
+            });
+        }
+
+        function loadAchievements() {
+            if (!userId) {
+                alert("User not logged in.");
+                const malayContainer = document.getElementById("malay-achievements");
+                const chineseContainer = document.getElementById("chinese-achievements");
+
+                // Create a placeholder block
+                const block = document.createElement("div");
+                block.className = "achievement-item";
+                block.innerHTML = `
+                    <div class="achievement-content">
+                        <div class="achievement-text">
+                            <div class="achievement-name">Null</div>
+                            <div class="achievement-date">--</div>
+                        </div>
+                        <div class="achievement-status">Not Logged In</div>
+                    </div>
+                `;
+
+                if (selectedLanguage === "Malay") {
+                    chineseContainer.parentElement.style.display = "none";
+                    malayContainer.appendChild(block);
+                    malayContainer.parentElement.style.display = "block";
+                } else if (selectedLanguage === "Chinese") {
+                    malayContainer.parentElement.style.display = "none";
+                    chineseContainer.appendChild(block);
+                    chineseContainer.parentElement.style.display = "block";
+                }
+                return;
+            }
+
+            fetch(`http://localhost:8080/api/Achievement/filterBy/${userId}`)
+                .then(response => response.json())
+                .then(userAchievements => {
+                    const malayContainer = document.getElementById("malay-achievements");
+                    const chineseContainer = document.getElementById("chinese-achievements");
+
+                    // Clear existing achievements
+                    malayContainer.innerHTML = '';
+                    chineseContainer.innerHTML = '';
+
+                    let malayCount = 0;
+                    let chineseCount = 0;
+
+                    userAchievements.forEach(item => {
+                        const block = document.createElement("div");
+                        block.className = "achievement-item";
+                        block.innerHTML = `
+                            <div class="achievement-content">
+                                <div class="achievement-text">
+                                    <div class="achievement-name">${item.name}</div>
+                                    <div class="achievement-date">
+                                        <i class="far fa-calendar-alt"></i>
+                                        ${new Date(item.completedTime).toLocaleString()}
+                                    </div>
+                                </div>
+                                <div class="achievement-actions">
+                                    <div class="achievement-status">${item.status}</div>
+                                    <button class="delete-btn" onclick="deleteAchievement(${item.id})">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+
+                        if (item.name.toLowerCase().startsWith("malay") && selectedLanguage === "Malay") {
+                            malayContainer.appendChild(block);
+                            malayContainer.parentElement.style.display = "block";
+                            malayCount++;
+                        } else if (item.name.toLowerCase().startsWith("chinese") && selectedLanguage === "Chinese") {
+                            chineseContainer.appendChild(block);
+                            chineseContainer.parentElement.style.display = "block";
+                            chineseCount++;
+                        }
+                    });
+
+                    updateAchievementCount(malayCount, chineseCount);
+                })
+                .catch(error => {
+                    console.error("Failed to load achievements:", error);
+                });
+        }
+
+        // Initial load
+        loadAchievements();
+
+        // Back to Language Selected Page
+        document.getElementById('learnLink').addEventListener('click', function (e) {
+            e.preventDefault();
+            const language = localStorage.getItem('selectedLanguage');
+            if (language === 'Chinese') {
+                window.location.href = 'chinese.html';
+            } else if (language === 'Malay') {
+                window.location.href = 'bahasa-melayu.html';
+            }
+        });
+
+        // Clear localStorage("userId)
+        document.getElementById('logoutBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+            localStorage.removeItem('userId');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

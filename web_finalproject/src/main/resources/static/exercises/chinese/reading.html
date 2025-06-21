@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading - GoLanguage</title>
+    <link rel="stylesheet" href="../../css/main-page.css">
+    <link rel="stylesheet" href="../../css/exercises.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <h1>GoLanguage</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active">
+                        <a href="../../chinese.html"><i class="fas fa-book"></i> <span>Learn</span></a>
+                    </li>
+                    <li>
+                        <a href="../../achievement.html"><i class="fas fa-trophy"></i> <span>Achievements</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-user"></i> <span>Profile</span></a>
+                    </li>
+                    <li>
+                        <a href="../../about-us.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a>
+                    </li>
+                    <li>
+                        <a href="../../index.html"><i class="fas fa-sign-out-alt"></i> <span>Log Out</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <h2>Reading Exercise</h2>
+                
+            </div>
+
+            <div class="exercise-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 20%"></div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question-number">Passage 1 of 3</div>
+                    <div class="reading-passage">
+                        <h3>在餐馆 (zài cān guǎn)</h3>
+                        <p>
+                            我和朋友去餐馆吃饭。(wǒ hé péng you qù cān guǎn chī fàn)<br>
+                            这家餐馆很有名。(zhè jiā cān guǎn hěn yǒu míng)<br>
+                            我们点了炒饭和汤。(wǒ men diǎn le chǎo fàn hé tāng)<br>
+                            服务员很友好。(fú wù yuán hěn yǒu hǎo)<br>
+                            饭菜很好吃。(fàn cài hěn hǎo chī)
+                        </p>
+                    </div>
+
+                    <div class="comprehension-questions">
+                        <div class="question">
+                            <p>1. 他们去哪里？(tā men qù nǎ lǐ?)</p>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="q1" value="1">
+                                    <span class="option-text">餐馆 (cān guǎn - restaurant)</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q1" value="2">
+                                    <span class="option-text">商店 (shāng diàn - shop)</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q1" value="3">
+                                    <span class="option-text">学校 (xué xiào - school)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question">
+                            <p>2. 他们点了什么？(tā men diǎn le shén me?)</p>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="q2" value="1">
+                                    <span class="option-text">面条和水 (miàn tiáo hé shuǐ - noodles and water)</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q2" value="2">
+                                    <span class="option-text">炒饭和汤 (chǎo fàn hé tāng - fried rice and soup)</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q2" value="3">
+                                    <span class="option-text">米饭和肉 (mǐ fàn hé ròu - rice and meat)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question">
+                            <p>3. 饭菜怎么样？(fàn cài zěn me yàng?)</p>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="q3" value="1">
+                                    <span class="option-text">很好吃 (hěn hǎo chī - very delicious)</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q3" value="2">
+                                    <span class="option-text">不好吃 (bù hǎo chī - not delicious)</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q3" value="3">
+                                    <span class="option-text">一般 (yī bān - average)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="nav-btn" id="prevBtn" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button class="nav-btn primary" id="nextBtn">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample passages data
+        const passages = [
+            {
+                title: "在餐馆 (zài cān guǎn)",
+                content: [
+                    "我和朋友去餐馆吃饭。(wǒ hé péng you qù cān guǎn chī fàn)\n这家餐馆很有名。(zhè jiā cān guǎn hěn yǒu míng)\n我们点了炒饭和汤。(wǒ men diǎn le chǎo fàn hé tāng)\n服务员很友好。(fú wù yuán hěn yǒu hǎo)\n饭菜很好吃。(fàn cài hěn hǎo chī)"
+                ],
+                questions: [
+                    {
+                        question: "他们去哪里？(tā men qù nǎ lǐ?)",
+                        options: ["餐馆 (cān guǎn - restaurant)", "商店 (shāng diàn - shop)", "学校 (xué xiào - school)"],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "他们点了什么？(tā men diǎn le shén me?)",
+                        options: ["面条和水 (miàn tiáo hé shuǐ - noodles and water)", "炒饭和汤 (chǎo fàn hé tāng - fried rice and soup)", "米饭和肉 (mǐ fàn hé ròu - rice and meat)"],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "饭菜怎么样？(fàn cài zěn me yàng?)",
+                        options: ["很好吃 (hěn hǎo chī - very delicious)", "不好吃 (bù hǎo chī - not delicious)", "一般 (yī bān - average)"],
+                        correctAnswer: 1
+                    }
+                ]
+            },
+            {
+                title: "在学校 (zài xué xiào)",
+                content: [
+                    "今天我八点去学校。(jīn tiān wǒ bā diǎn qù xué xiào)\n我有中文课和数学课。(wǒ yǒu zhōng wén kè hé shù xué kè)\n我的老师很亲切。(wǒ de lǎo shī hěn qīn qiè)\n我喜欢上学。(wǒ xǐ huān shàng xué)"
+                ],
+                questions: [
+                    {
+                        question: "他几点去学校？(tā jǐ diǎn qù xué xiào?)",
+                        options: ["七点 (qī diǎn - 7 o'clock)", "八点 (bā diǎn - 8 o'clock)", "九点 (jiǔ diǎn - 9 o'clock)"],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "他上什么课？(tā shàng shén me kè?)",
+                        options: ["中文课和数学课 (zhōng wén kè hé shù xué kè - Chinese and Math)", "英文课和体育课 (yīng wén kè hé tǐ yù kè - English and PE)", "科学课和历史课 (kē xué kè hé lì shǐ kè - Science and History)"],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "他觉得老师怎么样？(tā jué de lǎo shī zěn me yàng?)",
+                        options: ["很亲切 (hěn qīn qiè - very kind)", "很严格 (hěn yán gé - very strict)", "很无聊 (hěn wú liáo - very boring)"],
+                        correctAnswer: 1
+                    }
+                ]
+            },
+            {
+                title: "在超市 (zài chāo shì)",
+                content: [
+                    "妈妈和我去超市买东西。(mā ma hé wǒ qù chāo shì mǎi dōng xi)\n我们买了水果和面包。(wǒ men mǎi le shuǐ guǒ hé miàn bāo)\n超市里有很多人。(chāo shì lǐ yǒu hěn duō rén)\n我们排队付钱。(wǒ men pái duì fù qián)"
+                ],
+                questions: [
+                    {
+                        question: "他们去哪里？(tā men qù nǎ lǐ?)",
+                        options: ["餐馆 (cān guǎn - restaurant)", "超市 (chāo shì - supermarket)", "银行 (yín háng - bank)"],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "他们买了什么？(tā men mǎi le shén me?)",
+                        options: ["水果和面包 (shuǐ guǒ hé miàn bāo - fruit and bread)", "衣服和鞋 (yī fú hé xié - clothes and shoes)", "鱼和肉 (yú hé ròu - fish and meat)"],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "他们怎么付钱？(tā men zěn me fù qián?)",
+                        options: ["排队付钱 (pái duì fù qián - lined up to pay)", "在线付款 (zài xiàn fù kuǎn - paid online)", "没有付钱 (méi yǒu fù qián - didn't pay)"],
+                        correctAnswer: 1
+                    }
+                ]
+            }
+        ];
+
+
+        let currentQuestion = 0;
+
+        // Navigation buttons functionality
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                updatePassage();
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            // Check if all questions are answered correctly
+            const currentPassage = passages[currentQuestion];
+            const questions = currentPassage.questions;
+            
+            // Check if all questions are answered
+            for (let i = 1; i <= questions.length; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (!selectedAnswer) {
+                    alert('Please answer all questions before proceeding.');
+                    return;
+                }
+            }
+
+            // Check if all answers are correct
+            for (let i = 1; i <= questions.length; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (parseInt(selectedAnswer.value) !== questions[i-1].correctAnswer) {
+                    alert('Some answers are incorrect. Please check your answers and try again.');
+                    return;
+                }
+            }
+
+            if (currentQuestion < passages.length - 1) {
+                currentQuestion++;
+                updatePassage();
+            } else {
+                alert('Congratulations! You have completed all passages!');
+
+                // Send exercise name and status to backend
+                const userId = localStorage.getItem('userId');
+
+                const achievement = {
+                    name: 'Chinese - Reading',
+                    status: 'Completed',
+                    user: {id: userId}
+                };
+
+                fetch('http://localhost:8080/api/Achievement', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(achievement)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Achievement saved successfully.');
+                            window.location.href = '../../chinese.html';
+                        } else {
+                            console.error('Failed to save Achievement.');
+                            window.location.href = '../../chinese.html';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        });
+
+        function updatePassage() {
+            const passage = passages[currentQuestion];
+            
+            // Update title and content
+            document.querySelector('h3').textContent = passage.title;
+            const paragraphs = document.querySelectorAll('.reading-passage p');
+            passage.content.forEach((text, index) => {
+                paragraphs[index].innerHTML = text.replace(/\n/g, '<br>');
+            });
+
+            // Clear previous selections
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+
+            // Update questions and options
+            const questionElements = document.querySelectorAll('.question');
+            passage.questions.forEach((q, index) => {
+                const questionEl = questionElements[index];
+                questionEl.querySelector('p').textContent = `${index + 1}. ${q.question}`;
+                const options = questionEl.querySelectorAll('.option-text');
+                q.options.forEach((option, optIndex) => {
+                    options[optIndex].textContent = option;
+                });
+            });
+
+            // Update progress
+            const progress = ((currentQuestion + 1) / passages.length) * 100;
+            document.querySelector('.progress').style.width = `${progress}%`;
+            
+            // Update passage number
+            document.querySelector('.question-number').textContent = `Passage ${currentQuestion + 1} of ${passages.length}`;
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').textContent = 
+                currentQuestion === passages.length - 1 ? 'Finish' : 'Next';
+        }
+    </script>
+</body>
+</html> 

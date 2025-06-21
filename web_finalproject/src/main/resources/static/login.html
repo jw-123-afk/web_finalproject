@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GoLanguage</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <h1>GoLanguage</h1>
+            </div>
+        </header>
+
+        <main>
+            <div class="login-container">
+                <div class="login-box">
+                    <h2>Welcome Back!</h2>
+                    <p class="subtitle">Please login to continue</p>
+                    
+                    <form id="loginForm" onsubmit="return handleLogin(event)">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required 
+                                   placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required 
+                                   placeholder="Enter your password">
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="remember-me">
+                                <input type="checkbox" name="remember">
+                                Remember me
+                            </label>
+                           
+                        </div>
+                        
+                        <button type="submit" class="login-btn">Login</button>
+                    </form>
+                    
+                    <div class="register-link">
+                        Don't have an account? <a href="register.html">Register here</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        window.onload = function () {
+            // Autofill saved credentials
+            const savedEmail = localStorage.getItem('rememberedEmail');
+            const savedPassword = localStorage.getItem('rememberedPassword');
+
+            if (savedEmail && savedPassword) {
+                document.getElementById('email').value = savedEmail;
+                document.getElementById('password').value = savedPassword;
+                document.querySelector('input[name="remember"]').checked = true;
+            }
+        };
+
+        async function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const remember = document.querySelector('input[name="remember"]').checked;
+
+            const user = {
+                email: email,
+                password: password
+            };
+
+            try {
+                const response = await fetch('http://localhost:8080/api/User/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                });
+
+                if (response.ok) {
+
+                    const data = await response.json(); // Parse JSON response
+
+                    // Save user ID to localStorage
+                    localStorage.setItem('userId', data.id);
+
+                    // Save credentials if "Remember me" is checked
+                    if (remember) {
+                        localStorage.setItem('rememberedEmail', email);
+                        localStorage.setItem('rememberedPassword', password);
+                    } else {
+                        localStorage.removeItem('rememberedEmail');
+                        localStorage.removeItem('rememberedPassword');
+                    }
+                    alert('Login successful!');
+                    window.location.href = 'language-selection.html';
+                } else {
+                    const errorMessage = await response.text();
+                    alert('Login failed: ' + errorMessage);
+                }
+            } catch (error) {
+                alert('Error connecting to server: ' + error.message);
+            }
+
+            return false;
+        }
+    </script>
+
+</body>
+</html> 

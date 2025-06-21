@@ -1,0 +1,400 @@
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+}
+
+.logo-container {
+    padding: 0 20px;
+    margin-bottom: 40px;
+}
+
+.logo-container h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nav-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-menu li {
+    margin-bottom: 5px;
+}
+
+.nav-menu a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-menu li.active a {
+    background: rgba(255, 255, 255, 0.2);
+    border-left: 4px solid white;
+}
+
+.nav-menu i {
+    width: 24px;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 20px;
+    background: #f5f7fa;
+}
+
+.content-header .header-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content-header h2 {
+    color: #2c3e50;
+    margin: 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-name {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.welcome-section {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.welcome-section p {
+    color: #666;
+    margin: 0;
+}
+
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.course-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+}
+
+.course-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.course-icon i {
+    font-size: 24px;
+    color: white;
+}
+
+.course-card h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.course-card p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.start-btn {
+    text-decoration: none;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
+}
+
+/* Exercise Types Styles */
+.exercise-types {
+    padding: 40px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.exercise-types h3 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.exercise-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 20px;
+    justify-items: center;
+}
+
+.exercise-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.exercise-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.exercise-icon i {
+    font-size: 24px;
+    color: white;
+}
+
+.exercise-card h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.exercise-card p {
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.start-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.start-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
+}
+
+/* Exercise Preview Styles */
+.exercise-preview {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.preview-question {
+    font-size: 0.9rem;
+}
+
+.preview-question p {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+/* Multiple Choice Styles */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    cursor: pointer;
+}
+
+.options input[type="radio"] {
+    accent-color: #6a11cb;
+}
+
+/* Fill in the Blanks Styles */
+.blank-input input {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #e1e1e1;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    background: #fff;
+}
+
+/* Matching Game Styles */
+.matching-preview {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.match-item {
+    background: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: 1px solid #e1e1e1;
+    font-size: 0.9rem;
+    color: #2c3e50;
+}
+
+/* Word Order Styles */
+.word-order-preview {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.word {
+    background: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: 1px solid #e1e1e1;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    cursor: move;
+}
+
+.language-switcher {
+    font-size: 16px;
+    padding: 8px 12px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+    }
+
+    .logo-container h1 {
+        display: none;
+    }
+
+    .nav-menu span {
+        display: none;
+    }
+
+    .nav-menu i {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .nav-menu a {
+        justify-content: center;
+        padding: 15px;
+    }
+
+    .main-content {
+        margin-left: 70px;
+    }
+
+    .course-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .exercise-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .exercise-card {
+        max-width: 100%;
+    }
+} 
