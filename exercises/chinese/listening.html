@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Exercise - GoLanguage</title>
+    <link rel="stylesheet" href="../../css/main-page.css">
+    <link rel="stylesheet" href="../../css/exercises.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app-container">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <h1>GoLanguage</h1>
+        </div>
+        <nav class="nav-menu">
+            <ul>
+                <li class="active">
+                    <a href="../../chinese.html"><i class="fas fa-book"></i> <span>Learn</span></a>
+                </li>
+                <li>
+                    <a href="../../achievement.html"><i class="fas fa-trophy"></i> <span>Achievements</span></a>
+                </li>
+                <li>
+                    <a href="../../profile.html"><i class="fas fa-user"></i> <span>Profile</span></a>
+                </li>
+                <li>
+                    <a href="../../about-us.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="content-header">
+            <h2>Listening Exercise</h2>
+            
+        </div>
+
+        <div class="exercise-container">
+            <div class="progress-bar">
+                <div class="progress" id="progressBar" style="width: 0%"></div>
+            </div>
+
+            <div class="question-container">
+                <div class="question-number" id="questionNumber">Question 1 of 4</div>
+                <div class="question-text" id="questionText">Listen to the audio and choose the correct answer.</div>
+
+                <div class="audio-container">
+                    <audio id="audioPlayer" controls>
+                        <source src="../../audio/chinese/ni-hao-ma.mp3" type="audio/mp3">
+\                    </audio>
+                </div>
+
+                <div class="options-container">
+                    <label class="option"><input type="radio" name="answer" value="How are you?"> <span>How are you?</span></label>
+                    <label class="option"><input type="radio" name="answer" value="Thank you"> <span>Thank you</span></label>
+                    <label class="option"><input type="radio" name="answer" value="You're welcome"> <span>You're welcome</span></label>
+                    <label class="option"><input type="radio" name="answer" value="Sorry"> <span>Sorry</span></label>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="nav-btn" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="nav-btn primary" id="nextBtn">Next <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            audio: "../../audio/chinese/ni-hao-ma.mp3",
+            correctAnswer: "How are you?"
+        },
+        {
+            audio: "../../audio/chinese/xie-xie.mp3",
+            correctAnswer: "Thank you"
+        },
+        {
+            audio: "../../audio/chinese/bu-ke-qi.mp3",
+            correctAnswer: "You're welcome"
+        },
+        {
+            audio: "../../audio/chinese/dui-bu-qi.mp3",
+            correctAnswer: "Sorry"
+        }
+    ];
+
+    let currentQuestion = 0;
+
+    function loadQuestion() {
+        const question = questions[currentQuestion];
+        document.getElementById("audioPlayer").src = question.audio;
+        document.getElementById("audioPlayer").load();
+        document.getElementById("questionNumber").textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+        document.getElementById("questionText").textContent = "Listen to the audio and choose the correct answer.";
+
+        // Clear radio selection
+        const radios = document.querySelectorAll('input[name="answer"]');
+        radios.forEach(radio => radio.checked = false);
+
+        // Update progress
+        const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
+        document.getElementById("progressBar").style.width = `${progressPercent}%`;
+
+        // Update navigation buttons
+        document.getElementById("prevBtn").disabled = currentQuestion === 0;
+        document.getElementById("nextBtn").textContent = currentQuestion === questions.length - 1 ? "Finish" : "Next";
+    }
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+        const selected = document.querySelector('input[name="answer"]:checked');
+        if (!selected) {
+            alert("Please select an answer before proceeding.");
+            return;
+        }
+
+        const correct = questions[currentQuestion].correctAnswer;
+        if (selected.value === correct) {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                alert("You've completed the listening!");
+
+                // Send exercise name and status to backend
+                const userId = localStorage.getItem("userId");
+                const achievement = {
+                    name: 'Chinese - Listening',
+                    status: 'Completed',
+                    user: {id: userId}
+                };
+
+                fetch('http://localhost:8080/api/Achievement', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(achievement)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Achievement saved successfully.');
+                            window.location.href = '../../chinese.html';
+                        } else {
+                            console.error('Failed to save Achievement.');
+                            window.location.href = '../../chinese.html';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        } else {
+            alert("Incorrect. Try again.");
+        }
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            loadQuestion();
+        }
+    });
+
+    // Initial load
+    loadQuestion();
+</script>
+</body>
+</html>

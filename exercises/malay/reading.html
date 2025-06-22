@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading - GoLanguage</title>
+    <link rel="stylesheet" href="../../css/main-page.css">
+    <link rel="stylesheet" href="../../css/exercises.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <h1>GoLanguage</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active">
+                        <a href="../../bahasa-melayu.html"><i class="fas fa-book"></i> <span>Learn</span></a>
+                    </li>
+                    <li>
+                        <a href="../../achievement.html"><i class="fas fa-trophy"></i> <span>Achievements</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-user"></i> <span>Profile</span></a>
+                    </li>
+                    <li>
+                        <a href="../../about-us.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <h2>Reading Exercise</h2>
+                <div class="user-info">
+                   
+                </div>
+            </div>
+
+            <div class="exercise-container">
+                <div class="progress-bar">
+                    <div class="progress" style="width: 20%"></div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question-number">Passage 1 of 5</div>
+                    <div class="reading-passage">
+                        <h3>Di Pasar</h3>
+                        <p>
+                            Saya pergi ke pasar pada hari Sabtu. Pasar itu sangat sibuk. Banyak orang membeli-belah. 
+                            Saya membeli sayur-sayuran dan buah-buahan. Ibu saya suka memasak sayur kangkung. 
+                            Saya juga membeli ikan untuk makan malam. Harga ikan hari ini agak mahal.
+                        </p>
+                        <p>
+                            Selepas membeli-belah, saya berjumpa dengan kawan saya, Ali. Kami minum teh tarik di 
+                            kedai kopi berdekatan. Ali bercerita tentang kerja barunya. Dia bekerja sebagai jurutera 
+                            di sebuah syarikat teknologi.
+                        </p>
+                    </div>
+
+                    <div class="comprehension-questions">
+                        <div class="question">
+                            <p>1. Bilakah penulis pergi ke pasar?</p>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="q1" value="1">
+                                    <span class="option-text">Hari Jumaat</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q1" value="2">
+                                    <span class="option-text">Hari Sabtu</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q1" value="3">
+                                    <span class="option-text">Hari Ahad</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question">
+                            <p>2. Apakah yang dibeli oleh penulis?</p>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="q2" value="1">
+                                    <span class="option-text">Sayur-sayuran dan buah-buahan</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q2" value="2">
+                                    <span class="option-text">Sayur-sayuran dan ikan</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q2" value="3">
+                                    <span class="option-text">Buah-buahan dan daging</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="question">
+                            <p>3. Apakah pekerjaan Ali?</p>
+                            <div class="options">
+                                <label class="option">
+                                    <input type="radio" name="q3" value="1">
+                                    <span class="option-text">Doktor</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q3" value="2">
+                                    <span class="option-text">Jurutera</span>
+                                </label>
+                                <label class="option">
+                                    <input type="radio" name="q3" value="3">
+                                    <span class="option-text">Guru</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button class="nav-btn" id="prevBtn" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button class="nav-btn primary" id="nextBtn">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample passages data
+        const passages = [
+            {
+                title: "Di Pasar",
+                content: [
+                    "Saya pergi ke pasar pada hari Sabtu. Pasar itu sangat sibuk. Banyak orang membeli-belah. Saya membeli sayur-sayuran dan buah-buahan. Ibu saya suka memasak sayur kangkung. Saya juga membeli ikan untuk makan malam. Harga ikan hari ini agak mahal.",
+                    "Selepas membeli-belah, saya berjumpa dengan kawan saya, Ali. Kami minum teh tarik di kedai kopi berdekatan. Ali bercerita tentang kerja barunya. Dia bekerja sebagai jurutera di sebuah syarikat teknologi."
+                ],
+                questions: [
+                    {
+                        question: "Bilakah penulis pergi ke pasar?",
+                        options: ["Hari Jumaat", "Hari Sabtu", "Hari Ahad"],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "Apakah yang dibeli oleh penulis?",
+                        options: ["Sayur-sayuran dan buah-buahan", "Sayur-sayuran dan ikan", "Buah-buahan dan daging"],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "Apakah pekerjaan Ali?",
+                        options: ["Doktor", "Jurutera", "Guru"],
+                        correctAnswer: 2
+                    }
+                ]
+            },
+            {
+                title: "Di Sekolah",
+                content: [
+                    "Hari ini adalah hari pertama saya di sekolah baru. Saya berasa gementar kerana tidak mengenali sesiapa. Guru kelas saya, Cikgu Aminah, sangat baik. Dia memperkenalkan saya kepada rakan-rakan sekelas.",
+                    "Semasa rehat, saya berjumpa dengan beberapa kawan baru. Mereka mengajak saya makan bersama. Kami berkongsi makanan dan bercerita tentang hobi masing-masing. Saya berasa gembira kerana dapat kawan baru."
+                ],
+                questions: [
+                    {
+                        question: "Apakah perasaan penulis pada hari pertama di sekolah?",
+                        options: ["Gembira", "Gementar", "Marah"],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "Siapakah nama guru kelas penulis?",
+                        options: ["Cikgu Ali", "Cikgu Aminah", "Cikgu Ahmad"],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "Apakah yang dilakukan penulis semasa rehat?",
+                        options: ["Bermain bola", "Makan bersama kawan baru", "Belajar di perpustakaan"],
+                        correctAnswer: 2
+                    }
+                ]
+            },
+            {
+                title: "Hobi Saya",
+                content: [
+                    "Saya suka membaca buku. Setiap hari, saya menghabiskan masa sejam untuk membaca. Buku kegemaran saya adalah novel dan cerita pendek. Saya juga suka mengumpul buku-buku lama.",
+                    "Selain membaca, saya juga suka berkebun. Di belakang rumah saya, ada sebuah taman kecil. Saya menanam sayur-sayuran dan bunga-bungaan. Berkebun membuat saya berasa tenang dan gembira."
+                ],
+                questions: [
+                    {
+                        question: "Berapa lamakah penulis membaca setiap hari?",
+                        options: ["30 minit", "1 jam", "2 jam"],
+                        correctAnswer: 1
+                    },
+                    {
+                        question: "Apakah jenis buku kegemaran penulis?",
+                        options: ["Buku masakan", "Novel dan cerita pendek", "Buku teks"],
+                        correctAnswer: 2
+                    },
+                    {
+                        question: "Di manakah penulis berkebun?",
+                        options: ["Di hadapan rumah", "Di belakang rumah", "Di tepi rumah"],
+                        correctAnswer: 2
+                    }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        // Navigation buttons functionality
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                updatePassage();
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            // Check if all questions are answered correctly
+            const currentPassage = passages[currentQuestion];
+            const questions = currentPassage.questions;
+            
+            // Check if all questions are answered
+            for (let i = 1; i <= questions.length; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (!selectedAnswer) {
+                    alert('Please answer all questions before proceeding.');
+                    return;
+                }
+            }
+
+            // Check if all answers are correct
+            for (let i = 1; i <= questions.length; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (parseInt(selectedAnswer.value) !== questions[i-1].correctAnswer) {
+                    alert('Some answers are incorrect. Please check your answers and try again.');
+                    return;
+                }
+            }
+
+            if (currentQuestion < passages.length - 1) {
+                currentQuestion++;
+                updatePassage();
+            } else {
+                alert('Congratulations! You have completed all passages!');
+
+                // Send exercise name and status to backend
+                const userId = localStorage.getItem("userId");
+
+                const achievement = {
+                    name: 'Malay - Reading',
+                    status: 'Completed',
+                    user: {id: userId}
+                };
+
+                fetch('http://localhost:8080/api/Achievement', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(achievement)
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Achievement saved successfully.');
+                            window.location.href = '../../bahasa-melayu.html';
+                        } else {
+                            console.error('Failed to save Achievement.');
+                            window.location.href = '../../bahasa-melayu.html';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        });
+
+        function updatePassage() {
+            const passage = passages[currentQuestion];
+            
+            // Update title and content
+            document.querySelector('h3').textContent = passage.title;
+            const paragraphs = document.querySelectorAll('.reading-passage p');
+            passage.content.forEach((text, index) => {
+                paragraphs[index].textContent = text;
+            });
+
+            // Clear previous selections
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+
+            // Update questions and options
+            const questionElements = document.querySelectorAll('.question');
+            passage.questions.forEach((q, index) => {
+                const questionEl = questionElements[index];
+                questionEl.querySelector('p').textContent = `${index + 1}. ${q.question}`;
+                const options = questionEl.querySelectorAll('.option-text');
+                q.options.forEach((option, optIndex) => {
+                    options[optIndex].textContent = option;
+                });
+            });
+
+            // Update progress
+            const progress = ((currentQuestion + 1) / passages.length) * 100;
+            document.querySelector('.progress').style.width = `${progress}%`;
+            
+            // Update passage number
+            document.querySelector('.question-number').textContent = `Passage ${currentQuestion + 1} of ${passages.length}`;
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').textContent = 
+                currentQuestion === passages.length - 1 ? 'Finish' : 'Next';
+        }
+    </script>
+</body>
+</html> 
