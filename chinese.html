@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese - GoLanguage</title>
+    <link rel="stylesheet" href="css/main-page.css">
+    <link rel="stylesheet" href="css/achievement.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="logo-container">
+                <h1>GoLanguage</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active">
+                        <a href="#"><i class="fas fa-book"></i> <span>Learn</span></a>
+                    </li>
+                    <li>
+                        <a href="achievement.html"><i class="fas fa-trophy"></i> <span>Achievements</span></a>
+                    </li>
+                    <li>
+                        <a href="profile.html"><i class="fas fa-user"></i> <span>Profile</span></a>
+                    </li>
+                    <li>
+                        <a href="about-us.html"><i class="fas fa-info-circle"></i> <span>About Us</span></a>
+                    </li>
+                    <li>
+                        <a href="#"  id="logoutBtn"><i class="fas fa-sign-out-alt"></i> <span>Log Out</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="content-header">
+                <div class="header-row">
+                    <h2>
+                        <img src="images/Flag_of_the_People's_Republic_of_China.webp" alt="China Flag" class="flag-icon">
+                        Chinese
+                    </h2>
+                    <select class="language-switcher" onchange="changeLanguage(this)">
+                        <option value="bahasa-melayu.html">Malay</option>
+                        <option value="chinese.html" selected>Chinese</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Exercise Types -->
+            <div class="exercise-types">
+                <div class="exercise-grid">
+                    <!-- Multiple Choice -->
+                    <div class="exercise-card">
+                        <div class="exercise-icon">
+                            <i class="fas fa-list-ul"></i>
+                        </div>
+                        <h4>Multiple Choice</h4>
+                        <p>Test your knowledge with multiple choice questions</p>
+                        <a href="exercises/chinese/multiple-choice.html" class="start-btn">Start Exercise</a>
+                    </div>
+
+                    <!-- Fill in the Blanks -->
+                    <div class="exercise-card">
+                        <div class="exercise-icon">
+                            <i class="fas fa-pencil-alt"></i>
+                        </div>
+                        <h4>Fill in the Blanks</h4>
+                        <p>Complete sentences with the correct words</p>
+                        <a href="exercises/chinese/fill-blanks.html" class="start-btn">Start Exercise</a>
+                    </div>
+
+                    <!-- Reading -->
+                    <div class="exercise-card">
+                        <div class="exercise-icon">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <h4>Reading</h4>
+                        <p>Read and understand Chinese passages</p>
+                        <a href="exercises/chinese/reading.html" class="start-btn">Start Exercise</a>
+                    </div>
+
+                    <!-- Listening -->
+                    <div class="exercise-card">
+                        <div class="exercise-icon">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <h4>Listening</h4>
+                        <p>Practice listening comprehension exercises</p>
+                        <a href="exercises/chinese/listening.html" class="start-btn">Start Exercise</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeLanguage(selectElement) {
+            const selectedPage = selectElement.value;
+
+            if (selectedPage !== window.location.pathname.split("/").pop()) {
+                window.location.href = selectedPage;
+            }
+        }
+
+        localStorage.setItem("selectedLanguage", "Chinese");
+
+        document.getElementById('logoutBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+            localStorage.removeItem('userId'); // Clear userId
+            window.location.href = 'index.html';
+        });
+
+    </script>
+
+</body>
+</html> 
