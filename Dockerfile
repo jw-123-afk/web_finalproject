@@ -16,7 +16,7 @@ RUN chmod +x /wait-for-it.sh
 
 # Environment variables for database configuration
 ENV DB_HOST=mysql \
-    DB_PORT=3306 \
+    DB_PORT=3307 \
     DB_NAME=golanguage_db \
     DB_USER=root \
     DB_PASSWORD=12345678
